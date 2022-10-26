@@ -56,7 +56,7 @@ export async function createOrderPreference(
 	return { url: res.body.init_point };
 }
 
-export async function gerMerchantOrderById(merchantOrderId: string | number) {
+export async function getMerchantOrderById(merchantOrderId: string | number) {
 	const mercharntOrder = await mercadopago.merchant_orders.findById(
 		merchantOrderId
 	);
