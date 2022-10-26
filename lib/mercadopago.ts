@@ -48,7 +48,7 @@ export async function createOrderPreference(
 		},
 		external_reference: orderId, //EXTERNAL REFERENCE ENVIA EL ID DE LA ORDER DE NUESTRA DB PARA PODER ACTUALIZAR EL ESTADO
 		notification_url:
-			"https://webhook.site/61c3d9f9-bec1-4aa0-80c0-7408351ae199",
+			"https://ecommerce-be-weld.vercel.app/api/ipn/mercadopago",
 		metadata: {},
 	};
 
