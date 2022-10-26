@@ -5,10 +5,14 @@
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "@types/mercadopago": "^1.5.8",
     "@types/node": "^18.11.2",
     "@types/react": "^18.0.21",
+    "airtable": "^0.11.5",
+    "algoliasearch": "^4.14.2",
     "date-fns": "^2.29.3",
     "firebase-admin": "^11.2.0",
+    "fireorm": "^0.23.3",
     "jsonwebtoken": "^8.5.1",
     "mercadopago": "^1.5.14",
     "micro": "^9.4.1",
@@ -18,10 +22,12 @@
     "random-seed": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "reflect-metadata": "^0.1.13",
     "typescript": "^4.8.4"
-  },"scripts": {
-    "dev":"next dev",
-    "build":"next build",
-    "start":"next"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next"
   }
 }
