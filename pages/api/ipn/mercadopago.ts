@@ -1,12 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 import { getMerchantOrderById } from "../../../lib/mercadopago";
-import { useFireorm, firestore } from "../../../lib/firebase";
-
 import {
 	getOrderById,
 	getOrderName,
-	updateAndNotificationOrderMerchant,
 	updateOrder,
 } from "../../../controllers/order";
 import { sendEmailToClient, TemplateClientParams } from "../../../lib/emailjs";
@@ -18,28 +15,22 @@ export default methods({
 		if (topic == "merchant_order") {
 			const merchantOrder = await getMerchantOrderById(id as number | string);
 			if (merchantOrder) {
-				// const newStatusOrder = merchantOrder.body.status;
-				// const orderId = merchantOrder.body.external_reference;
-				// const mpRes = merchantOrder.body;
-				// console.log(merchantOrder);
-				// const orderUpdate = await updateOrder(orderId, newStatusOrder, mpRes);
-				// const clientName = await getOrderName(orderId);
-				// const orderData = await getOrderById(orderId);
-				// const emailParams = {
-				// 	from_name: "Ecommerce APX",
-				// 	to_name: clientName,
-				// 	product_name: orderData.data.title,
-				// 	product_price: orderData.data.unit_cost,
-				// 	product_description: orderData.data.description,
-				// 	reply_to: orderData.email,
-				// };
-				// const clientEmail = await sendEmailToClient(emailParams);
-				// const orderData = await getOrderById(
-				// 	merchantOrder.body.external_reference
-				// );
-				// const clientName = await getOrderName(orderData.id);
-				// console.log({ orderData, clientName });
-				const test = await updateAndNotificationOrderMerchant(id);
+				const newStatusOrder = merchantOrder.body.status;
+				const orderId = merchantOrder.body.external_reference;
+				const mpRes = merchantOrder.body;
+				console.log(merchantOrder);
+				const orderUpdate = await updateOrder(orderId, newStatusOrder, mpRes);
+				const clientName = await getOrderName(orderId);
+				const orderData = await getOrderById(orderId);
+				const emailParams = {
+					from_name: "Ecommerce APX",
+					to_name: clientName,
+					product_name: orderData.data.title,
+					product_price: orderData.data.unit_cost,
+					product_description: orderData.data.description,
+					reply_to: orderData.email,
+				};
+				const clientEmail = await sendEmailToClient(emailParams);
 			}
 		}
 
