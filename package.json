@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@emailjs/browser": "^3.7.0",
     "@sendgrid/mail": "^7.7.0",
     "@types/mercadopago": "^1.5.8",
     "@types/node": "^18.11.2",

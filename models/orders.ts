@@ -17,8 +17,10 @@ export class Order {
 	expires: Date;
 	userId: string;
 	email: string;
-	status: "failure" | "succes" | "pending";
+	status: "pending" | string;
 	aditionalInfo?: any;
+	mercadopagoRes?: any;
+	name: string;
 }
 
 export const orderCollection = getRepository(Order);
