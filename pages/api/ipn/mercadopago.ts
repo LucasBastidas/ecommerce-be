@@ -6,6 +6,7 @@ import { useFireorm, firestore } from "../../../lib/firebase";
 import {
 	getOrderById,
 	getOrderName,
+	updateAndNotificationOrderMerchant,
 	updateOrder,
 } from "../../../controllers/order";
 import { sendEmailToClient, TemplateClientParams } from "../../../lib/emailjs";
@@ -33,11 +34,12 @@ export default methods({
 				// 	reply_to: orderData.email,
 				// };
 				// const clientEmail = await sendEmailToClient(emailParams);
-				const orderData = await getOrderById(
-					merchantOrder.body.external_reference
-				);
-				const clientName = await getOrderName(orderData.id);
-				console.log({ orderData, clientName });
+				// const orderData = await getOrderById(
+				// 	merchantOrder.body.external_reference
+				// );
+				// const clientName = await getOrderName(orderData.id);
+				// console.log({ orderData, clientName });
+				const test = await updateAndNotificationOrderMerchant(id);
 			}
 		}
 
