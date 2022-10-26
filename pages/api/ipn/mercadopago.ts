@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 import { getMerchantOrderById } from "../../../lib/mercadopago";
+import { useFireorm, firestore } from "../../../lib/firebase";
+
 import {
 	getOrderById,
 	getOrderName,
@@ -34,6 +36,8 @@ export default methods({
 				const orderData = await getOrderById(
 					merchantOrder.body.external_reference
 				);
+				const clientName = await getOrderName(orderData.id);
+				console.log({ orderData, clientName });
 			}
 		}
 
