@@ -1,5 +1,6 @@
-import { useFireorm } from "../lib/firebase";
 import { Collection, getRepository } from "fireorm";
+import { firestore } from "../lib/firebase";
+firestore;
 
 export type OrderData = {
 	unit_cost: number;

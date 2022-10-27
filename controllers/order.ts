@@ -12,7 +12,7 @@ import {
 import { getUserData } from "../controllers/user";
 import addMinutes from "date-fns/addMinutes";
 import { MercadoPagoMerchantOrder } from "mercadopago/resources/merchantOrders";
-import { sendEmailToClient } from "../lib/emailjs";
+import { sendEmailToClient, sendEmailToSeller } from "../lib/emailjs";
 import { updateStockAlgolia } from "../lib/algolia";
 import { updateProductStockAirtable } from "../lib/airtable";
 
@@ -117,7 +117,8 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 		const orderUpdate = await updateOrder(orderId, newStatusOrder, mpRes);
 		const clientName = await getOrderName(orderId);
 		const orderData = await getOrderById(orderId);
-		const emailParams = {
+
+		const emailClientParams = {
 			from_name: "Ecommerce APX",
 			to_name: clientName,
 			product_name: orderData.data.title,
@@ -125,17 +126,28 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			product_description: orderData.data.description,
 			to: orderData.email,
 		};
-		const clientEmail = await sendEmailToClient(emailParams);
+		const clientEmail = await sendEmailToClient(emailClientParams);
 		console.log({ 22: orderData.productId, 11: orderData.data.quantity });
 
+		const emailSellerParams = {
+			from_name: "Ecommerce APX",
+			order_id: orderId,
+			product_id: orderData.productId,
+			product_name: orderData.data.title,
+			product_price: orderData.data.unit_cost,
+			product_description: orderData.data.description,
+			product_quantity: orderData.data.quantity,
+		};
+
+		const sellerEmail = await sendEmailToSeller(emailSellerParams);
 		// await updateStockAlgoliaAndAirtable(
 		// 	orderData.productId,
 		// 	orderData.data.quantity
 		// );
-		await updateStockAlgolia(orderData.productId, orderData.data.quantity);
-		await updateProductStockAirtable(
-			orderData.productId,
-			orderData.data.quantity
-		);
+		// await updateStockAlgolia(orderData.productId, orderData.data.quantity);
+		// await updateProductStockAirtable(
+		// 	orderData.productId,
+		// 	orderData.data.quantity
+		// );
 	}
 }

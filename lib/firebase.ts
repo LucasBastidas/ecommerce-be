@@ -10,6 +10,6 @@ if (admin.apps.length == 0) {
 }
 
 const firestore = admin.firestore();
-const useFireorm = fireorm.initialize(firestore);
+fireorm.initialize(firestore);
 
-export { useFireorm, firestore };
+export { firestore };
