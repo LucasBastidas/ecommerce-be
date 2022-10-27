@@ -1,5 +1,5 @@
-import { airtableBase } from "../lib/airtable";
-import { products } from "../lib/algolia";
+import { airtableBase, updateProductStockAirtable } from "../lib/airtable";
+import { products, updateStockAlgolia } from "../lib/algolia";
 import { NextApiRequest } from "next";
 
 export function syncAirtableWithAlgolia() {
@@ -85,4 +85,12 @@ export async function searchProductById(productId: string) {
 		console.error(error);
 		return null;
 	}
+}
+
+export async function updateStockAlgoliaAndAirtable(
+	productId: string,
+	itemsSold: number
+) {
+	const algolia = await updateStockAlgolia(productId, itemsSold);
+	const airtable = await updateProductStockAirtable(productId, itemsSold);
 }

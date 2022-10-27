@@ -5,7 +5,10 @@ import {
 } from "../lib/mercadopago";
 import { orderCollection } from "../models/orders";
 import { Order, OrderData } from "../models/orders";
-import { searchProductById } from "../controllers/products";
+import {
+	searchProductById,
+	updateStockAlgoliaAndAirtable,
+} from "../controllers/products";
 import { getUserData } from "../controllers/user";
 import addMinutes from "date-fns/addMinutes";
 import { MercadoPagoMerchantOrder } from "mercadopago/resources/merchantOrders";
@@ -121,5 +124,9 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			to: orderData.email,
 		};
 		const clientEmail = await sendEmailToClient(emailParams);
+		const updateProductDb = await updateStockAlgoliaAndAirtable(
+			orderData.productId,
+			orderData.data.quantity
+		);
 	}
 }
