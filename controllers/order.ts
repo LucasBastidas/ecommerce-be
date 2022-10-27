@@ -124,9 +124,11 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			to: orderData.email,
 		};
 		const clientEmail = await sendEmailToClient(emailParams);
-		const updateProductDb = await updateStockAlgoliaAndAirtable(
-			orderData.productId,
-			orderData.data.quantity
-		);
+		console.log({ 22: orderData.productId, 11: orderData.data.quantity });
+
+		// const updateProductDb = await updateStockAlgoliaAndAirtable(
+		// 	orderData.productId,
+		// 	orderData.data.quantity
+		// );
 	}
 }

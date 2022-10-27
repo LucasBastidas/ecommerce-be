@@ -8,9 +8,12 @@ import {
 	updateOrder,
 } from "../../../controllers/order";
 import { sendEmailToClient, TemplateClientParams } from "../../../lib/emailjs";
+import { firestore, useFireorm } from "../../../lib/firebase";
 
 export default methods({
 	async post(req: NextApiRequest, res: NextApiResponse) {
+		console.log(firestore.terminate);
+
 		const { id, topic } = req.query;
 
 		if (topic == "merchant_order") {
