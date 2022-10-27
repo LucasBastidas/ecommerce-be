@@ -13,6 +13,8 @@ import { getUserData } from "../controllers/user";
 import addMinutes from "date-fns/addMinutes";
 import { MercadoPagoMerchantOrder } from "mercadopago/resources/merchantOrders";
 import { sendEmailToClient } from "../lib/emailjs";
+import { updateStockAlgolia } from "../lib/algolia";
+import { updateProductStockAirtable } from "../lib/airtable";
 
 type OrderParam = {
 	data: OrderData;
@@ -126,9 +128,14 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 		const clientEmail = await sendEmailToClient(emailParams);
 		console.log({ 22: orderData.productId, 11: orderData.data.quantity });
 
-		// const updateProductDb = await updateStockAlgoliaAndAirtable(
+		// await updateStockAlgoliaAndAirtable(
 		// 	orderData.productId,
 		// 	orderData.data.quantity
 		// );
+		await updateStockAlgolia(orderData.productId, orderData.data.quantity);
+		await updateProductStockAirtable(
+			orderData.productId,
+			orderData.data.quantity
+		);
 	}
 }
