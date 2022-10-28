@@ -46,6 +46,7 @@ export type TemplateSellerParams = {
 	product_price: number;
 	product_description: string;
 	product_quantity: number;
+	direction: any;
 };
 
 export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
@@ -62,7 +63,7 @@ export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
                <li>Producto: ${templateParams.product_name}</li>
                <li>Precio: $${templateParams.product_price}</li>
                <li>Unidad/es: ${templateParams.product_quantity}</li>
-               <li>Dirección: ${templateParams.product_quantity}</li>
+               <li>Dirección: ${templateParams.direction}</li>
                </ul><br>
                <p>Muchas gracias por tu compra! -Tienda yo-</p>`,
 	};

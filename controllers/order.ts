@@ -114,9 +114,11 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 		const newStatusOrder = merchantOrder.body.status;
 		const orderId = merchantOrder.body.external_reference;
 		const mpRes = merchantOrder.body;
+
 		const orderUpdate = await updateOrder(orderId, newStatusOrder, mpRes);
 		const clientName = await getOrderName(orderId);
 		const orderData = await getOrderById(orderId);
+		const clientData = await getUserData(orderData.userId);
 
 		const emailClientParams = {
 			from_name: "Ecommerce APX",
@@ -126,6 +128,8 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			product_description: orderData.data.description,
 			to: orderData.email,
 		};
+
+		//ENVIA CORREO DE CONFIRMACIÓN AL CLIENTE
 		const clientEmail = await sendEmailToClient(emailClientParams);
 		console.log({ 22: orderData.productId, 11: orderData.data.quantity });
 
@@ -137,13 +141,17 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			product_price: orderData.data.unit_cost,
 			product_description: orderData.data.description,
 			product_quantity: orderData.data.quantity,
+			direction: clientData.address,
 		};
 
+		//ENVIA AVISO AL VENDEDOR
 		const sellerEmail = await sendEmailToSeller(emailSellerParams);
-		// await updateStockAlgoliaAndAirtable(
-		// 	orderData.productId,
-		// 	orderData.data.quantity
-		// );
+
+		//ACTUALIZA ALGOLIA Y AIRTABLE
+		await updateStockAlgoliaAndAirtable(
+			orderData.productId,
+			orderData.data.quantity
+		);
 		// await updateStockAlgolia(orderData.productId, orderData.data.quantity);
 		// await updateProductStockAirtable(
 		// 	orderData.productId,
