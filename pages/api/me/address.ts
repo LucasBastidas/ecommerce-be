@@ -6,6 +6,9 @@ import { meAddressBodySchema } from "../../../lib/yup";
 
 const handler = methods({
 	async patch(req: NextApiRequest, res: NextApiResponse, token) {
+		if (!req.body) {
+			return res.status(200).json({ message: "no data for update" });
+		}
 		try {
 			await meAddressBodySchema.validate(req.body);
 		} catch (error) {
