@@ -19,7 +19,7 @@ export default methods({
 
 		const auth = await findAuthAndGetToken(email, code);
 		if (!auth) {
-			res.status(403).json({ error: "email o codigo incorrecto" });
+			res.status(403).send({ error: "email o codigo incorrecto" });
 		}
 		res.status(200).json({ success: auth });
 	},

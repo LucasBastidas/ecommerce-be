@@ -14,10 +14,6 @@ export default methods({
 
 		const email = req.body.email;
 
-		if (!email) {
-			res.status(403).json({ error: "no email" });
-		}
-
 		const auth = await sendCode(email);
 
 		if (!auth) {
