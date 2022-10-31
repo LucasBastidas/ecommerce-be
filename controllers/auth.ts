@@ -3,12 +3,7 @@ import { Auth, authCollection } from "../models/auth";
 import { createUser } from "./user";
 import { generate } from "../lib/jwt";
 import sgMail from "@sendgrid/mail";
-
-import gen from "random-seed";
 import addMinutes from "date-fns/addMinutes";
-
-const seed = "23kjh1hg1g2jhegsa";
-const random = gen.create(seed);
 
 export async function createNewAuth(userId: string, email: string) {
 	const newAuth = new Auth();

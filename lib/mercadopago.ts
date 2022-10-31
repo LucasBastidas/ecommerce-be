@@ -13,12 +13,6 @@ export type PreferenceDataType = {
 	category_id: string;
 };
 
-// export type UserDataForPreferenceType = {
-// 	id: string;
-// 	name: string;
-// 	email: string;
-// };
-
 //CREAR ORDER PARA UN SOLO ITEM
 
 export async function createOrderPreference(
@@ -56,9 +50,10 @@ export async function createOrderPreference(
 	return { url: res.body.init_point };
 }
 
+//DEVUELVE UN MERCHANTORDER A PARTIR DE SU ID
 export async function getMerchantOrderById(merchantOrderId: string | number) {
-	const mercharntOrder = await mercadopago.merchant_orders.findById(
+	const merchantOrder = await mercadopago.merchant_orders.findById(
 		merchantOrderId
 	);
-	return mercharntOrder;
+	return merchantOrder;
 }

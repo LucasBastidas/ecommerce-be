@@ -1,20 +1,13 @@
 import {
 	createOrderPreference,
 	getMerchantOrderById,
-	PreferenceDataType,
 } from "../lib/mercadopago";
 import { orderCollection } from "../models/orders";
 import { Order, OrderData } from "../models/orders";
-import {
-	searchProductById,
-	updateStockAlgoliaAndAirtable,
-} from "../controllers/products";
+import { searchProductById } from "../controllers/products";
 import { getUserData } from "../controllers/user";
 import addMinutes from "date-fns/addMinutes";
-import { MercadoPagoMerchantOrder } from "mercadopago/resources/merchantOrders";
 import { sendEmailToClient, sendEmailToSeller } from "../lib/emailjs";
-import { updateStockAlgolia } from "../lib/algolia";
-import { updateProductStockAirtable } from "../lib/airtable";
 
 type OrderParam = {
 	data: OrderData;
@@ -42,6 +35,7 @@ export async function createOrder(orderParams: OrderParam, aditionalInfo?) {
 	return newOrder;
 }
 
+//CREA UNA ORDEN EN LA DB Y LA PREFERENCIA DE COMPRA DE MERCADOPAGO
 export async function createOrderAndPreference(
 	userId: string,
 	productId: string,
@@ -50,7 +44,7 @@ export async function createOrderAndPreference(
 	const product = await searchProductById(productId);
 
 	if (!product) {
-		return null;
+		throw "El producto no existe.";
 	}
 
 	const user = await getUserData(userId);
@@ -88,11 +82,13 @@ export async function createOrderAndPreference(
 	return preference;
 }
 
+//BUSCAR LA ORDER POR ID
 export async function getOrderById(orderId) {
 	const order = await orderCollection.findById(orderId);
 	return order;
 }
 
+//ACTUALIZA LA ORDER EN LA DB
 export async function updateOrder(orderId, status, mpResponse) {
 	const order = await orderCollection.findById(orderId);
 	order.status = status;
@@ -100,12 +96,14 @@ export async function updateOrder(orderId, status, mpResponse) {
 	await orderCollection.update(order);
 }
 
+//DEVUELVE EL NOMBRE DEL CLIENTE QUE HIZO LA ORDER
 export async function getOrderName(orderId): Promise<string> {
 	const order = await orderCollection.findById(orderId);
 	const user = await getUserData(order.userId);
 	return user.name;
 }
 
+//ACTUALIZA LA ORDER EN LA DATABASE
 export async function updateAndNotificationOrderMerchant(merchantId) {
 	const merchantOrder = await getMerchantOrderById(
 		merchantId as number | string
@@ -146,16 +144,5 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 
 		//ENVIA AVISO AL VENDEDOR
 		const sellerEmail = await sendEmailToSeller(emailSellerParams);
-
-		//ACTUALIZA ALGOLIA Y AIRTABLE
-		await updateStockAlgoliaAndAirtable(
-			orderData.productId,
-			orderData.data.quantity
-		);
-		// await updateStockAlgolia(orderData.productId, orderData.data.quantity);
-		// await updateProductStockAirtable(
-		// 	orderData.productId,
-		// 	orderData.data.quantity
-		// );
 	}
 }

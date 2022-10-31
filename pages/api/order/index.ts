@@ -2,25 +2,36 @@ import { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 import { middleware } from "../../../lib/middleware";
 import { createOrderAndPreference } from "../../../controllers/order";
+import { orderQuerySchema, orderBodySchema } from "../../../lib/yup";
 
 const handler = methods({
 	async post(req: NextApiRequest, res: NextApiResponse, token) {
+		try {
+			await orderQuerySchema.validate(req.query);
+		} catch (error) {
+			res.status(404).send({ message: error });
+		}
 		const { productId } = req.query;
-		const { aditionalInfo } = req.body;
-		if (!productId) {
-			res.status(404).send("No productId");
-		}
-		const orderRes = await createOrderAndPreference(
-			token.userId,
-			productId as string,
-			aditionalInfo
-		);
+		const aditionalInfo = req.body;
 
-		if (!orderRes) {
-			res.status(404).json({ message: "no product found" });
+		if (aditionalInfo) {
+			try {
+				await orderBodySchema.validate(aditionalInfo);
+			} catch (error) {
+				res.status(404).send({ message: error });
+			}
 		}
 
-		res.status(200).json(orderRes);
+		try {
+			const orderRes = await createOrderAndPreference(
+				token.userId,
+				productId as string,
+				aditionalInfo
+			);
+			res.status(200).json(orderRes);
+		} catch (error) {
+			res.status(404).send({ message: error });
+		}
 	},
 });
 

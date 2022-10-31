@@ -2,6 +2,7 @@ import { airtableBase, updateProductStockAirtable } from "../lib/airtable";
 import { products, updateStockAlgolia } from "../lib/algolia";
 import { NextApiRequest } from "next";
 
+//SINCRONIZA AIRTABLE CON ALGOLIA
 export function syncAirtableWithAlgolia() {
 	airtableBase("Products")
 		.select({})
@@ -48,6 +49,7 @@ function getLimitAndOffset(req: NextApiRequest, maxLimit, maxOffset = 1000) {
 	};
 }
 
+//BUSCA UN PRODUCTO EN ALGOLIA
 export async function searchProductByQuery(req: NextApiRequest, query) {
 	const totalProductos = await products.search(query as string);
 	const { limit, offset } = getLimitAndOffset(req, 10, totalProductos.nbHits);
@@ -68,6 +70,7 @@ export async function searchProductByQuery(req: NextApiRequest, query) {
 	};
 }
 
+//BUSCA UN PRODUCTO POR ID
 export async function searchProductById(productId: string) {
 	try {
 		const busqueda = (await products.getObject(productId)) as any;
@@ -87,6 +90,7 @@ export async function searchProductById(productId: string) {
 	}
 }
 
+//CAMBIA EL STOCK DE UN PRODUCTO EN ALGOLIA Y AIRTABLE
 export async function updateStockAlgoliaAndAirtable(
 	productId: string,
 	itemsSold: number
