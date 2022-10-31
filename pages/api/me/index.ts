@@ -10,7 +10,7 @@ const handler = methods({
 	},
 	async patch(req: NextApiRequest, res: NextApiResponse, token) {
 		if (!req.body) {
-			return res.status(204).json({ message: "No data for update" });
+			return res.status(204).send({ message: "No data for update" });
 		}
 		const { address, name, email } = req.body;
 		if (!address && !name && !email) {
