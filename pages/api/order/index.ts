@@ -12,15 +12,16 @@ const handler = methods({
 			return res.status(404).send({ message: error });
 		}
 		const { productId } = req.query;
-		const aditionalInfo = req.body;
 
-		if (aditionalInfo) {
+		if (req.body) {
 			try {
-				await orderBodySchema.validate(aditionalInfo);
+				await orderBodySchema.validate(req.body);
 			} catch (error) {
 				return res.status(404).send({ message: error });
 			}
 		}
+
+		const aditionalInfo = req.body;
 
 		try {
 			const orderRes = await createOrderAndPreference(
