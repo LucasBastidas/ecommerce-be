@@ -10,7 +10,7 @@ export function middleware(callback) {
 		const token = parseToken(req);
 
 		if (!token) {
-			res.status(404).send({ message: "token not found" });
+			return res.status(404).send({ message: "token not found" });
 		}
 
 		//Si el token existe, intenta decodificarlo
@@ -20,7 +20,7 @@ export function middleware(callback) {
 		if (decodeToken) {
 			callback(req, res, decodeToken);
 		} else {
-			res.status(404).send({ message: "Error" });
+			return res.status(404).send({ message: "Error" });
 		}
 	};
 }
