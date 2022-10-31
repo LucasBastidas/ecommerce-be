@@ -8,7 +8,7 @@ export default methods({
 		try {
 			await authTokenBodySchema.validate(req.body);
 		} catch (error) {
-			res.status(404).json({ message: error });
+			return res.status(404).json({ message: error });
 		}
 
 		const { email, code } = req.body;
@@ -19,8 +19,9 @@ export default methods({
 
 		const auth = await findAuthAndGetToken(email, code);
 		if (!auth) {
-			res.status(403).json({ error: "email o codigo incorrecto" });
+			return res.status(403).json({ error: "email o codigo incorrecto" });
+		} else {
+			return res.status(200).json({ success: auth });
 		}
-		res.status(200).json({ success: auth });
 	},
 });

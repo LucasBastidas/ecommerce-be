@@ -10,9 +10,9 @@ export default methods({
 		console.log(searchRes);
 
 		if (searchRes) {
-			res.status(200).json({ productData: searchRes });
+			return res.status(200).json({ productData: searchRes });
 		} else {
-			res.status(403).json({ error: "El id no existe" });
+			return res.status(403).json({ error: "El id no existe" });
 		}
 	},
 });

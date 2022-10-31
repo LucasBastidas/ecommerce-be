@@ -9,7 +9,7 @@ const handler = methods({
 		try {
 			await orderQuerySchema.validate(req.query);
 		} catch (error) {
-			res.status(404).send({ message: error });
+			return res.status(404).send({ message: error });
 		}
 		const { productId } = req.query;
 		const aditionalInfo = req.body;
@@ -18,7 +18,7 @@ const handler = methods({
 			try {
 				await orderBodySchema.validate(aditionalInfo);
 			} catch (error) {
-				res.status(404).send({ message: error });
+				return res.status(404).send({ message: error });
 			}
 		}
 
@@ -28,9 +28,9 @@ const handler = methods({
 				productId as string,
 				aditionalInfo
 			);
-			res.status(200).json(orderRes);
+			return res.status(200).json(orderRes);
 		} catch (error) {
-			res.status(404).send({ message: error });
+			return res.status(404).send({ message: error });
 		}
 	},
 });

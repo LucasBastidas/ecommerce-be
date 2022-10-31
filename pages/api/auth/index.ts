@@ -9,7 +9,7 @@ export default methods({
 		try {
 			await authBodySchema.validate(req.body);
 		} catch (error) {
-			res.status(404).json({ message: error });
+			return res.status(404).json({ message: error });
 		}
 
 		const email = req.body.email;
@@ -17,8 +17,8 @@ export default methods({
 		const auth = await sendCode(email);
 
 		if (!auth) {
-			res.status(403).json({ error: "error" });
+			return res.status(403).json({ error: "error" });
 		}
-		res.status(200).json({ success: auth });
+		return res.status(200).json({ success: auth });
 	},
 });

@@ -10,6 +10,6 @@ export default methods({
 			const res = await updateAndNotificationOrderMerchant(id);
 		}
 
-		res.send({ ok: "ok" });
+		return res.send({ ok: "ok" });
 	},
 });

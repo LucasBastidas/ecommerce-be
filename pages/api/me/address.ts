@@ -9,12 +9,12 @@ const handler = methods({
 		try {
 			await meAddressBodySchema.validate(req.body);
 		} catch (error) {
-			res.status(404).json({ message: error });
+			return res.status(404).json({ message: error });
 		}
 		const { address } = req.body;
 
 		const updateData = await updateUserData(token.userId, req.body);
-		res.status(200).json({ updateData });
+		return res.status(200).json({ updateData });
 	},
 });
 

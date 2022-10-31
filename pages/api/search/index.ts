@@ -8,9 +8,9 @@ export default methods({
 
 		if (!q) {
 			const searchRes = await searchProductByQuery(req, q);
-			res.status(200).json(searchRes);
+			return res.status(200).json(searchRes);
 		}
 		const searchRes = await searchProductByQuery(req, q);
-		res.status(200).json(searchRes);
+		return res.status(200).json(searchRes);
 	},
 });
