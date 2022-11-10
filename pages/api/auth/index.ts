@@ -6,6 +6,8 @@ import { authBodySchema } from "../../../lib/yup";
 export default methods({
 	async post(req: NextApiRequest, res: NextApiResponse) {
 		//CHECKEA EL BODY
+		console.log({ req, res });
+
 		try {
 			await authBodySchema.validate(req.body);
 		} catch (error) {
