@@ -6,16 +6,14 @@ import { authBodySchema } from "../../../lib/yup";
 export default methods({
 	async post(req: NextApiRequest, res: NextApiResponse) {
 		//CHECKEA EL BODY
-		// try {
-		// 	await authBodySchema.validate(req.body);
-		// } catch (error) {
-		// 	return res.status(404).json({ message: error });
-		// }
+		try {
+			await authBodySchema.validate(req.body);
+		} catch (error) {
+			return res.status(404).json({ message: error });
+		}
 
 		const email = req.body.email;
-		if (!email) {
-			return res.status(404).json({ error: "NO EMAIL" });
-		}
+
 		const auth = await sendCode(email);
 
 		if (!auth) {
