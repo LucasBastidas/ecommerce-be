@@ -82,6 +82,7 @@ export async function searchProductById(productId: string) {
 			image: busqueda.images[0].url,
 			description: busqueda.description,
 			id: busqueda.objectID,
+			stock: busqueda.stock,
 		};
 
 		return cleanProduct;
