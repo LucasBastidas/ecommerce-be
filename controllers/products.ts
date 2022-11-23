@@ -74,6 +74,8 @@ export async function searchProductByQuery(req: NextApiRequest, query) {
 export async function searchProductById(productId: string) {
 	try {
 		const busqueda = (await products.getObject(productId)) as any;
+		console.log(busqueda);
+
 		const cleanProduct = {
 			title: busqueda.title,
 			category: busqueda.category,
