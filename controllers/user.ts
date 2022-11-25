@@ -20,13 +20,16 @@ export async function getUserData(userId: string) {
 //RECIBE USERID Y ACTUALIZA CON NUEVA DATA
 export async function updateUserData(userId: string, newUserData: any) {
 	const user = await userCollection.findById(userId);
-	const { email, name, address } = newUserData;
+	const { email, name, address, tel } = newUserData;
 	user.email = email ? email : user.email;
 	if (name) {
 		user.name = name;
 	}
 	if (address) {
 		user.address = address;
+	}
+	if (tel) {
+		user["telephone_number"] = tel;
 	}
 
 	const updateUser = await userCollection.update(user);
