@@ -7,7 +7,7 @@ export class User {
 	id: string;
 	email: string;
 	name?: string;
-	address?: string;
+	address?: any;
 }
 
 export const userCollection = getRepository(User);

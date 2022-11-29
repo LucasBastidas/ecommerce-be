@@ -46,7 +46,12 @@ export type TemplateSellerParams = {
 	product_price: number;
 	product_description: string;
 	product_quantity: number;
-	direction: any;
+	user_email: string;
+	user_name: string;
+	provincia: string;
+	ciudad: string;
+	calle: string;
+	altura: string;
 };
 
 export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
@@ -63,8 +68,13 @@ export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
                <li>Producto: ${templateParams.product_name}</li>
                <li>Precio: $${templateParams.product_price}</li>
                <li>Unidad/es: ${templateParams.product_quantity}</li>
-               <li>Dirección: ${templateParams.direction}</li>
-               </ul><br>
+               <li>Provincia: ${templateParams.provincia}</li>
+               <li>Ciudad: ${templateParams.ciudad}</li>
+               <li>Dirección: Calle: ${templateParams.calle} Altura: ${templateParams.altura}</li>
+               </ul><br><br>
+					<h2>Datos del comprador</h2>
+					<p>Email: ${templateParams.user_email}</p>
+					<p>Nombre: ${templateParams.user_name}</p>
                <p>Muchas gracias por tu compra! -Tienda yo-</p>`,
 	};
 	sgMail.send(msg).then(

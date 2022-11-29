@@ -139,7 +139,12 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			product_price: orderData.data.unit_cost,
 			product_description: orderData.data.description,
 			product_quantity: orderData.data.quantity,
-			direction: clientData.address,
+			user_email: clientData.email,
+			user_name: clientData.name,
+			provincia: clientData.address.provincia,
+			ciudad: clientData.address.ciudad,
+			calle: clientData.address.calle,
+			altura: clientData.address.altura,
 		};
 
 		//ENVIA AVISO AL VENDEDOR

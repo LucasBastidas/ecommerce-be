@@ -37,7 +37,7 @@ export async function createOrderPreference(
 			name: userData.name,
 		},
 		back_urls: {
-			succes: "https://apx.school/success",
+			succes: "https://ecommerce-fe-eosin.vercel.app/thanks",
 			pending: "https://apx.school/pending-payments",
 		},
 		external_reference: orderId, //EXTERNAL REFERENCE ENVIA EL ID DE LA ORDER DE NUESTRA DB PARA PODER ACTUALIZAR EL ESTADO
