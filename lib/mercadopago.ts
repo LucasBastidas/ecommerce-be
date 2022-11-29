@@ -37,7 +37,9 @@ export async function createOrderPreference(
 			name: userData.name,
 		},
 		back_urls: {
-			succes: "https://ecommerce-fe-eosin.vercel.app/thanks",
+			success: "https://ecommerce-fe-eosin.vercel.app/thanks",
+			failure: "",
+			pending: "",
 		},
 		auto_return: "approved",
 		external_reference: orderId, //EXTERNAL REFERENCE ENVIA EL ID DE LA ORDER DE NUESTRA DB PARA PODER ACTUALIZAR EL ESTADO
