@@ -48,6 +48,7 @@ export type TemplateSellerParams = {
 	product_quantity: number;
 	user_email: string;
 	user_name: string;
+	user_tel: number;
 	provincia: string;
 	ciudad: string;
 	calle: string;
@@ -74,7 +75,10 @@ export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
                </ul><br><br>
 					<h2>Datos del comprador</h2>
 					<p>Email: ${templateParams.user_email}</p>
+					<br>
 					<p>Nombre: ${templateParams.user_name}</p>
+					<br>
+					<p>Numero de teléfono: ${templateParams.user_tel}</p>
                <p>Muchas gracias por tu compra! -Tienda yo-</p>`,
 	};
 	sgMail.send(msg).then(

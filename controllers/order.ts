@@ -141,6 +141,7 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			product_quantity: orderData.data.quantity,
 			user_email: clientData.email,
 			user_name: clientData.name,
+			user_tel: clientData.telephone_number,
 			provincia: clientData.address.provincia,
 			ciudad: clientData.address.ciudad,
 			calle: clientData.address.calle,

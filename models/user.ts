@@ -7,6 +7,7 @@ export class User {
 	id: string;
 	email: string;
 	name?: string;
+	telephone_number?: number;
 	address?: any;
 }
 
