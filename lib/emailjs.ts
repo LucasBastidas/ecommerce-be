@@ -57,7 +57,7 @@ export type TemplateSellerParams = {
 
 export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
 	const msg = {
-		to: "lucaasbastidas@hotmail.com", //EL EMAIL DEL VENDEDOR O ADMINISTRADOR DEL ECOMERCE
+		to: "lucaasbastidas@gmail.com", //EL EMAIL DEL VENDEDOR O ADMINISTRADOR DEL ECOMERCE
 		from: "lucaasbastidas@hotmail.com", // Use the email address or domain you verified above
 		subject:
 			"Notificación sobre una compra en " + templateParams.from_name + "!",

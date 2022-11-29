@@ -38,8 +38,8 @@ export async function createOrderPreference(
 		},
 		back_urls: {
 			succes: "https://ecommerce-fe-eosin.vercel.app/thanks",
-			pending: "https://apx.school/pending-payments",
 		},
+		auto_return: "approved",
 		external_reference: orderId, //EXTERNAL REFERENCE ENVIA EL ID DE LA ORDER DE NUESTRA DB PARA PODER ACTUALIZAR EL ESTADO
 		notification_url:
 			"https://ecommerce-be-weld.vercel.app/api/ipn/mercadopago",
