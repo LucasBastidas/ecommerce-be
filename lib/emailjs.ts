@@ -79,7 +79,7 @@ export async function sendEmailToSeller(templateParams: TemplateSellerParams) {
 					<p>Nombre: ${templateParams.user_name}</p>
 					<br>
 					<p>Numero de teléfono: ${templateParams.user_tel}</p>
-               <p>Muchas gracias por tu compra! -Tienda yo-</p>`,
+`,
 	};
 	sgMail.send(msg).then(
 		() => {},

@@ -144,8 +144,8 @@ export async function updateAndNotificationOrderMerchant(merchantId) {
 			user_tel: clientData.telephone_number,
 			provincia: clientData.address.provincia,
 			ciudad: clientData.address.ciudad,
-			calle: clientData.address.calle,
-			altura: clientData.address.altura,
+			calle: clientData.address.direccion.calle,
+			altura: clientData.address.direccion.altura,
 		};
 
 		//ENVIA AVISO AL VENDEDOR
